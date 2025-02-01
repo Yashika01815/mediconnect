@@ -1,0 +1,157 @@
+*{
+    margin: 0px;
+    padding:0px;
+}
+
+.container{
+    display: flex;
+    height: 500px;
+    width:900px;
+    border: 1px solid aliceblue;
+    margin: 120px 0px 0px 300px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.sign-in-card{
+    border-radius:130px 15px 15px 130px;
+    height: 500px;
+    width: 450px;
+    background-color: #1e90ff;
+    margin-left:189px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#card2 .cont2{
+    margin-left : 1.5rem;
+}
+
+#card2 .cont2 input{
+    width: 140%;
+}
+
+#card2 .cont2 .butt2{
+    width:156%;
+}
+
+#card1{
+    height: 500px;
+    width: 400px;
+    border-radius: 15px 130px 130px 15px ;
+    background-color: #1e90ff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+#card1 h1, .sign-in-card h1{
+    text-align: center;
+    margin-top: 12rem;
+    font-family: "Lora", serif;
+    font-weight: bold;
+    color:aliceblue;
+}
+
+#card1 h3, .sign-in-card h3{
+    text-align: center;
+    font-size: 17px;
+    color: aliceblue;
+}
+
+#card1 button, .sign-in-card button{
+    margin:0.7rem 0 0 7rem;
+    width:42%;
+    height:40px;
+    border-radius: 5px;
+    background-color:#1e90ff;
+    border: 1px solid aliceblue;
+    font-size: 15px;
+    color: #fff;
+}
+#card1 button a, .sign-in-card button a{
+    text-decoration: none;
+    color:aliceblue;
+}
+
+#card2 .head2{
+    margin-left: 10rem;
+}
+
+#card2 .heading{
+    text-align: center;
+    padding-top: 50px;
+    font-family: "Lora", serif;
+    font-weight: 800;
+    font-size: larger;
+}
+
+.input-conatiner .details{
+    display:flex;
+    flex-direction: column;
+}
+
+.input-control{
+    display:flex;
+    margin: 0.7rem 0 0.7rem 1.5rem ;
+    padding:1rem;
+    height: auto;
+    width:100%;
+    border-radius: 5px;
+    outline: 1px solid #c7ecee;
+    border: none;
+    background-color: #f1f2f6;
+    font-size: 15px;;
+}
+
+.input-container label{
+    font-size: 20px;
+    margin : 1.5rem 0 0 1rem;
+}
+.password{
+    display: flex;
+}
+.password p{
+    font-size: 18px;
+    margin:0.8rem 1rem 0.4rem 7rem;
+}
+.resetPassword{
+    text-decoration: none;
+    margin:0.8rem 1rem 0.4rem 0;
+    font-size: 18px;
+    color: blue;
+}
+
+.resetBlock{
+    display:flex;
+    flex-direction:column;
+    /* height:180px;
+    width:120%; */
+    border-radius:10px;
+    background-color: #ecf0f1;
+    opacity:0;
+    border:2px solid #c7ecee;
+    margin-top:0.6rem;
+}
+
+.button-control{
+    margin:0.7rem 0 0 1.4rem;
+    width:110%;
+    height:50px;
+    border-radius: 5px;
+    background-color:#1e90ff;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+}
+
+.lastLine{
+    margin : 1rem 0 1rem 8.5rem;
+    font-size: 16px;
+    color: #636e72;
+}
+
+.social-tags{
+    margin-left: 8rem;
+}
+.social-tags a{
+    font-size:28px;
+    margin-left: 1rem;
+    color:#363b3c;
+}
+

@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel='stylesheet' href='./login.css'></link>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Jaini&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Special+Elite&display=swap" rel="stylesheet">
     <title>LogIn</title>
 </head>
 <body>
@@ -11,15 +15,15 @@
         <div class="container">
             <div id ="card1">
                 <h1>Hello, Welcome!</h1>
-                <h3>Don't have an account</h3>
-                <buuton>Sign In</buuton>
+                <h3>Don't have an account ?</h3>
+                <button><a href="./signIn.html" >Sign In</a></button>
             </div>
             <div id ="card2">
                 <div class="heading">
                     <h2>Log In</h2>
                 </div>
     
-                <div>
+                <div class="input-container">
                     <div class="details">
                         <label>Email :</label>
                         <input type="email" placeholder="eg :  abc@xyz.com" id="int1" class="input-control" />
@@ -33,20 +37,20 @@
                     <div class="password">
                         <p>Forgotten Password?</p><a href="#" id ="password" class="resetPassword">Recover here</a>
                     </div>
-                    <div class ="resetBlock">
+                    <!-- <div class ="resetBlock">
                         <h2>Reset Your Password</h2>
                         <label>Enter your email</label>
                         <input type="text" id="emailInput" placeholder="xyz@gmail.com"/>
                         <button id="sendEmailButton" type="button"> Send Password reset Email</button>
-                    </div>
+                    </div> -->
     
                     <button id="button" class="button-control">Log In</button>
     
-                    <div> 
+                    <div class="lastLine"> 
                         <h4>or login with social platforms</h4>
                     </div>
     
-                    <div>
+                    <div class="social-tags">
                         <a href="#"><i class='bx bxl-google'></i></a>
                         <a href="#"><i class='bx bxl-linkedin-square' ></i></a>
                         <a href="#"><i class='bx bxl-github' ></i></a>
