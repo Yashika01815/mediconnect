@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel='stylesheet' href='./login.css'></link>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,10 +30,27 @@
                         <label>Email :</label>
                         <input type="email" placeholder="eg :  abc@xyz.com" id="int1" class="input-control" />
                     </div>
+
+                    <div class="password-align">
+                        <div class="details">
+                            <label>Password :</label>
+                            <input type="password" placeholder="password" id="int2" class="input-control password-policy" />
+                        </div>
     
-                    <div class="details">
-                        <label>Password :</label>
-                        <input type="password" placeholder="password" id="int2" class="input-control" />
+                        <div class="details">
+                            <div class="password-details">
+                                <div class="password-intro">
+                                    <i class="fa-solid fa-lightbulb bulb"></i> <h4>Tips for Creating a Strong Password:</h4>
+                                </div>
+                                <ul class="password-rules" >
+                                    <li>Ensure your password is <span>at least 8 characters long.</span></li>
+                                    <li>Include <span>at least one alphanumeric character</span>(letter or digit).</li>
+                                    <li>Incorporate <span>at least one numerical digit.</span></li>
+                                    <li>Avoid using <span>spaces</span>within the password.</li>
+                                    <li>Use a mix of <span>upper</span> and <span>lowercase letters.</span></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="details">
@@ -56,5 +74,14 @@
 
 
     </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $('.password-policy').click(function(){
+            $('.password-details').addClass('password-details-slider');
+            $('.password-align').addClass('password-align-slider');
+            $('.sign-in-card').addClass('card-details-slider');
+        })
+    </script>
 </body>
 </html>

@@ -171,3 +171,51 @@
     color:#363b3c;
 }
 
+.password-details{
+    border:1px solid #7f8c8d;
+    background-color: #f1f2f6;
+    margin: 0rem 0 0rem 1rem;
+    opacity:0;
+    visibility: hidden; /* Not visible in layout */
+    position: absolute;
+}
+
+.password-intro{
+    display:flex;
+    margin: 0.4rem 0 0 1rem;
+}
+.password-intro .bulb{
+    margin:0.2rem 0.5rem 0 0;
+    color:#192a56;
+}
+.password-intro h4{
+    color:#192a56;
+}
+
+.password-rules{
+    margin:0.5rem 0 0 3rem;
+}
+.password-rules span{
+    color:#d63031;
+    font-weight: 600;
+}
+.password-rules li{
+    margin-bottom:0.2rem;
+}
+
+.password-details-slider{
+    opacity:1;
+    visibility: visible; /* Visible in layout */
+    width:28.5rem;
+    height:10rem;
+    margin-left: 170px;
+}
+
+.password-align-slider{
+    display: flex;
+    align-items: center;
+}
+
+.card-details-slider h1{
+    margin-top: 195px;
+}
