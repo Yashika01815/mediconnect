@@ -34,16 +34,6 @@
                         <input type="password" placeholder="password" id="int2" class="input-control" />
                     </div>
     
-                    <div class="password">
-                        <p>Forgotten Password?</p><a href="#" id ="password" class="resetPassword">Recover here</a>
-                    </div>
-                    <!-- <div class ="resetBlock">
-                        <h2>Reset Your Password</h2>
-                        <label>Enter your email</label>
-                        <input type="text" id="emailInput" placeholder="xyz@gmail.com"/>
-                        <button id="sendEmailButton" type="button"> Send Password reset Email</button>
-                    </div> -->
-    
                     <button id="button" class="button-control">Log In</button>
     
                     <div class="lastLine"> 
@@ -56,12 +46,30 @@
                         <a href="#"><i class='bx bxl-github' ></i></a>
                         <a href="#"><i class='bx bxl-facebook-square' ></i></a>
                     </div>
+
+                    <div class="password">
+                        <p>Forgotten Password?</p><a href="#" id ="password" class="resetPassword">Recover here</a>
+                    </div>
+
+                    <div class ="resetBlock">
+                        <h2>Reset Your Password</h2>
+                        <label>Enter your email</label>
+                        <input type="text" id="emailInput" placeholder="xyz@gmail.com"/>
+                        <button id="sendEmailButton" type="button"> Send Password reset Email</button>
+                    </div>
                 </div>
             </div>
     
         </div>
 
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $('.resetPassword').click(function() {
+                $('.resetBlock').addClass('container-slide');
+                $('.cont1').addClass('cont1-slide');
+            })
+        </script>
     </form>
 </body>
 </html>
