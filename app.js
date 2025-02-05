@@ -6,14 +6,22 @@ app.use(express.json());
 
 // passowrd - pxFOADAWKdmcJ16U      
 const db_link = 'mongodb+srv://admin:pxFOADAWKdmcJ16U@cluster0.d3d3w.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+// mongoose.connect('mongodb+srv://admin:pxFOADAWKdmcJ16U@cluster0.d3d3w.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+//     useNewUrlParser: true,
+//    }).then((f) => {
+//     console.log("Connected");
+//    }).catch((e) => {
+//     console.log("Not connected = Error => ", e);
+//    });
+
 mongoose.connect(db_link)
-.then(function(db){
-    console.log(db);
-    console.log("db connected");
-})
-.catch(function(err){
-    console.error(err);
-})
+    .then(() => {
+        console.log("db connected");
+    })
+    .catch((err) => {
+        console.error("Connection error:", err);
+       // console.error("Topology description:", err.reason);
+    });
 
 app.listen(3000, () => {
     console.log('Server is listening on port 3000');
