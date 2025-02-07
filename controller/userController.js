@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {sendMail} = require('../nodeMailer');
 
 // ✅ Get `userModel` directly from Mongoose (Avoid Circular Dependency)
 const userModel = mongoose.model('userModel');
@@ -40,3 +41,69 @@ module.exports.postSignUp = async function postSignUp(req, res) {
         });
     }
 };
+
+module.exports.forgotPassword = async function forgotPassword(req, res) {
+    let { email, domain } = req.body;
+    console.log("🔵 Received forgot password request for:", email, domain);
+
+    try {
+        const user = await userModel.findOne({ email: email });
+
+        if (user) {
+            const resetToken = user.createResetToken();
+            console.log("🔑 Generated Reset Token:", resetToken);
+
+            user.resetToken = resetToken;
+            await user.save();
+
+            let obj = {
+                resetPasswordLink: resetToken,
+                email: email
+            };
+
+            console.log("📧 Sending email with:", obj, domain);
+            
+            // Send email to the user through nodemailer
+            let emailSent = await sendMail("resetpassword", obj, domain);
+
+            if (emailSent) {
+                console.log("✅ Email Sent Successfully");
+                return res.json({ message: "Password reset email sent." });
+            } else {
+                console.log("❌ Email Sending Failed");
+                return res.status(500).json({ message: "Failed to send email. Please try again." });
+            }
+        } else {
+            console.log("⚠️ User not found with email:", email);
+            return res.status(400).json({ message: "Enter correct email." });
+        }
+    } catch (err) {
+        console.error("❌ Error in forgotPassword:", err);
+        return res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+};
+
+
+module.exports.resetPassword = async function resetPassword(req, res) {
+    try{
+        let {password, confirmPassword, token} = req.body;
+        console.log("from frontend",password,confirmPassword,token);
+        const user = await userModel.findOne({resetToken:token});
+         console.log(user);
+
+         if(user){
+              // to reset user password in DB
+              user.resetPasswordHandler(password, confirmPassword);   
+              await user.save();
+              return res.json({message:"credentials updated successfully"}); 
+         }else{
+            return res.json({
+                message:"Link has expired now"
+            })
+         }
+    }catch(err){
+        res.json({
+            message:err.message
+        })
+    }
+}

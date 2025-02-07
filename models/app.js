@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const emailValidator = require('email-validator');
+const crypto = require('crypto');
 
 const app = express();
 
@@ -50,8 +51,22 @@ const userSchema = mongoose.Schema({
     firstLogin: {
             type: Boolean,
             default: true
-    }
+    },
+    resetToken: {type:String, default:null},
 });
+
+userSchema.methods.createResetToken=function(){
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    this.resetToken = resetToken;
+    console.log(this.resetToken);
+    return resetToken;
+}
+
+userSchema.methods.resetPasswordHandler = function(password, confirmPassword){
+    this.password= password;
+    this.confirmPassword= confirmPassword;
+    this.resetToken =undefined;
+}
 
 // ✅ Register Model before Exporting
 mongoose.model('userModel', userSchema);
