@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const emailValidator = require('email-validator');
 
 const app = express();
 
@@ -24,10 +25,27 @@ app.use(express.json());
 
 // ✅ Define User Schema (Must be before exports)
 const userSchema = mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true, minLength: 8 },
-    confirmPassword: { type: String, required: true, minLength: 8 }
+    name: { 
+        type: String, 
+        required: true 
+    },
+    email: { 
+        type: String, 
+        required: true, 
+        unique: true,
+        validate:function(){
+            return emailValidator.validate(this.email);
+        } 
+    },
+    password: { 
+        type: String, 
+        required: true, 
+        minLength: 8 
+    },
+    confirmPassword: { 
+        type: String, 
+        required: true, 
+        minLength: 8 }
 });
 
 // ✅ Register Model before Exporting

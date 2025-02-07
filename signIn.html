@@ -86,6 +86,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+
+        // Password validation function
+        function validatePassword(password) {
+            const minLength = 8;
+            const hasAlphanumeric = /[a-zA-Z]/.test(password);
+            const hasNumber = /\d/.test(password);
+            const hasSpace = /\s/.test(password);
+
+           // Check if the password meets all the criteria
+            if (password.length >= minLength && hasAlphanumeric && hasNumber && !hasSpace) {
+                return true; // Password is valid
+            } else {
+                return false; // Password does not meet the criteria
+            }
+        }
+
         document.getElementById('signup-form').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -93,6 +109,11 @@
             let email = document.querySelector("input[placeholder='eg :  abc@xyz.com']").value.trim();
             let password = document.querySelector("input[placeholder='password']").value.trim();
             let confirmPassword = document.querySelector("input[placeholder='Enter your password again']").value.trim();
+
+            if (password !== confirmPassword) {
+                alert("Password and confirm password should match.");
+                    return;
+            }
 
             if (!name || !email || !password || !confirmPassword) {
                 alert("Please fill in all fields.");
