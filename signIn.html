@@ -12,7 +12,7 @@
     <title>SignIn</title>
 </head>
 <body>
-    <form >
+    <form id = "signup-form">
         <div class="container cont2">
             <div id ="card2">
                 <div class="heading head2">
@@ -34,7 +34,7 @@
                     <div class="password-align">
                         <div class="details">
                             <label>Password :</label>
-                            <input type="password" placeholder="password" id="int2" class="input-control password-policy" required/>
+                            <input type="password" placeholder="password" id="password" class="input-control password-policy" required/>
                         </div>
     
                         <div class="details">
@@ -55,7 +55,7 @@
 
                     <div class="details">
                         <label>Confirm Password :</label>
-                        <input type="password" placeholder="password" id="int2" class="input-control" required/>
+                        <input type="password" placeholder="Enter your password again" id="confirm-password" class="input-control" required/>
                     </div>
     
                     <button id="button" class="button-control butt2">Sign In</button>
@@ -81,6 +81,40 @@
             $('.password-details').addClass('password-details-slider');
             $('.password-align').addClass('password-align-slider');
             $('.sign-in-card').addClass('card-details-slider');
+        })
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            let name = document.querySelector("input[placeholder='eg : John Doe']").value.trim();
+            let email = document.querySelector("input[placeholder='eg :  abc@xyz.com']").value.trim();
+            let password = document.querySelector("input[placeholder='password']").value.trim();
+            let confirmPassword = document.querySelector("input[placeholder='Enter your password again']").value.trim();
+
+            if (!name || !email || !password || !confirmPassword) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            try{
+                let resp = await axios.post('http://localhost:3000/signup/sendInfo', {name, email, password, confirmPassword});
+                console.log(resp);
+                if(resp.data.message === "User created"){
+                    alert("The information you have provided meets all the required criteria.");
+                    window.location.href = '/logIn.html'; //Redirect to login page 
+                }
+
+            }catch(err){
+                if (err.response && err.response.data && err.response.data.message) { 
+                    alert(err.response.data.message); 
+                    console.log(err);
+                } else {
+                    alert("An unexpected error occurred.");
+                }
+            }
         })
     </script>
 </body>

@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
+    "email-validator": "^2.0.4",
     "express": "^4.21.2",
     "mongoose": "^6.1.1",
     "nodemon": "^3.1.9"
@@ -7,7 +9,6 @@
   "name": "mediconnect",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
