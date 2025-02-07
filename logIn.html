@@ -63,13 +63,50 @@
     
         </div>
 
-
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js "></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $('.resetPassword').click(function() {
                 $('.resetBlock').addClass('container-slide');
                 $('.cont1').addClass('cont1-slide');
             })
+        </script>
+
+        <script>
+            document.getElementById('login-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+            let email = document.querySelector("input[placeholder='eg :  abc@xyz.com']").value;
+            let password = document.querySelector("input[placeholder='password']").value;
+
+            //http://192.168.1.102:3000 -> backend url
+            const domain = window.location.hostname;
+            console.log(domain);
+
+            try{
+                const resp = await axios.post(`http://${domain}:3000/signup/login`, { email, password },{headers: {'Content-Type': 'application/json'}, withCredentials: true});
+                if (resp.data.message === "user has logged in") {
+                    //sweetalert
+                    const isFirstLogin = resp.data.firstLogin;
+                    const alertText = isFirstLogin ? "A confirmation email has been sent to you with your credentials. Welcome to MediConnect!" : "Welcome to Khoya Paya Portal!";
+                    Swal.fire({
+                        title: "Login Successful!!!",
+                        text: alertText,
+                        icon: "success"
+                    }).then((result)=>{
+                        if(result.isConfirmed){
+                            window.location.href = '/mediconnect/mainproject.html'; // Redirect to home page upon successful login
+                        }
+                    })
+                }else{
+                    alert(resp.data.message); // Show error message
+                }
+            }catch(error){
+                console.log(error);
+                alert("An error occurred during login. Please try again.");
+            }
+            
+        });
         </script>
 
         <script>

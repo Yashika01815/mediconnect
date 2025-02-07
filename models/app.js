@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const emailValidator = require('email-validator');
 const crypto = require('crypto');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -23,6 +24,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 // ✅ Define User Schema (Must be before exports)
 const userSchema = mongoose.Schema({

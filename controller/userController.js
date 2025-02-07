@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const {sendMail} = require('../nodeMailer');
+const jwt = require('jsonwebtoken');
+const JWT_KEY = 'heuiwyr8934y2quxi';
+const cookieParser = require('cookie-parser');
+
 
 // ✅ Get `userModel` directly from Mongoose (Avoid Circular Dependency)
 const userModel = mongoose.model('userModel');
@@ -105,5 +109,55 @@ module.exports.resetPassword = async function resetPassword(req, res) {
         res.json({
             message:err.message
         })
+    }
+}
+
+module.exports.loginUser = async function loginUser(req, res){
+    try{
+        let data = req.body;
+        if(data.email){
+            let user = await userModel.findOne({email:data.email});
+
+            if(user){
+                if(user.password == data.password){
+                    const uid = user._id;
+                    const token = jwt.sign({_id:uid}, JWT_KEY);
+                    res.cookie('token', token, {httpOnly:true,secure:false, 
+                        sameSite: 'Lax' , path:'/'});
+             
+                    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+                    res.header('Expires', '-1');
+                    res.header('Pragma', 'no-cache');
+
+                    const cookies  = req.cookies;
+                    //console.log(cookies);
+                    const isFirstLogin = user.firstLogin;
+                    if (isFirstLogin) {
+                        sendMail("login", user);
+                        // Update the user's firstLogin field to false
+                        user.firstLogin = false;
+                        await user.save();
+                       // console.log("First login email sent and user updated:", user);  // Debug log
+                    } 
+                    return res.json({
+                        message :"user has logged in",
+                        userDetails : data,
+                        firstLogin: isFirstLogin
+                    })
+
+                }else{
+                    return res.json({
+                        message:"wrong password"
+                    })
+                }
+            }else{
+                return res.json({
+                    message:"User not found. Enter correct email or create your account first!"
+                })
+            }
+        }
+        
+    }catch(err){
+        console.log(err);
     }
 }
