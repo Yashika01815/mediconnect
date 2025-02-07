@@ -8,6 +8,7 @@ module.exports.postSignUp = async function postSignUp(req, res) {
         console.log("🟢 Received signup request:", req.body);
 
         let { name, email, password, confirmPassword } = req.body;
+        let dataObj = req.body;
 
         // ✅ Check if any field is empty
         if (!name || !email || !password || !confirmPassword) {
@@ -17,6 +18,11 @@ module.exports.postSignUp = async function postSignUp(req, res) {
         // ✅ Ensure passwords match
         if (password !== confirmPassword) {
             return res.status(400).json({ message: "Passwords do not match!" });
+        }
+
+        let existingUser = await userModel.findOne({ email: dataObj.email });
+        if (existingUser) {
+            return res.status(400).json({ message: "Email already exists. Enter a new email." });
         }
 
         let user = await userModel.create({ name, email, password, confirmPassword });

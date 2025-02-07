@@ -89,17 +89,12 @@
 
         // Password validation function
         function validatePassword(password) {
-            const minLength = 8;
-            const hasAlphanumeric = /[a-zA-Z]/.test(password);
-            const hasNumber = /\d/.test(password);
-            const hasSpace = /\s/.test(password);
+            const minLength = password.length >= 8;  // ✅ At least 8 characters
+            const hasLetter = /[a-zA-Z]/.test(password);  // ✅ At least one letter
+            const hasNumber = /[0-9]/.test(password);  // ✅ At least one number
+            const hasNoSpace = !/\s/.test(password);  // ✅ No spaces
 
-           // Check if the password meets all the criteria
-            if (password.length >= minLength && hasAlphanumeric && hasNumber && !hasSpace) {
-                return true; // Password is valid
-            } else {
-                return false; // Password does not meet the criteria
-            }
+            return minLength && hasLetter && hasNumber && hasNoSpace;
         }
 
         document.getElementById('signup-form').addEventListener('submit', async function(e) {
@@ -117,6 +112,11 @@
 
             if (!name || !email || !password || !confirmPassword) {
                 alert("Please fill in all fields.");
+                return;
+            }
+
+            if (!validatePassword(password)) {
+                alert("Password does not meet the required criteria.");
                 return;
             }
 

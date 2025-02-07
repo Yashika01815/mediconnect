@@ -45,7 +45,12 @@ const userSchema = mongoose.Schema({
     confirmPassword: { 
         type: String, 
         required: true, 
-        minLength: 8 }
+        minLength: 8 
+    },  
+    firstLogin: {
+            type: Boolean,
+            default: true
+    }
 });
 
 // ✅ Register Model before Exporting
