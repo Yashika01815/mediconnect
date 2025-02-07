@@ -74,37 +74,37 @@
 
         <script>
             document.getElementById('sendEmailButton').addEventListener('click', async () => {
-            const email = document.getElementById('emailInput').value;
+            const email = document.getElementById('emailInput').value.trim();
 
             if (!email) {
-                alert('Please enter an email address.');
+                alert('⚠️ Please enter an email address.');
                 return;
             }
-            const domain = window.location.hostname;
-            console.log(domain);
 
-            try{
-                const response = await fetch('http://localhost:3000/signup/forgotPassword',{
+            const domain = window.location.hostname;
+            console.log("🌐 Domain:", domain);
+
+            try {
+                const response = await fetch('http://localhost:3000/signup/forgotPassword', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, domain })
                 });
 
-                const responseText = await response.text();
-                console.log('Response Text:', responseText);
+                const data = await response.json(); // ✅ Directly parse JSON response
+                console.log('📩 Server Response:', data);
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                if (response.ok) {
+                    alert(data.message); // ✅ Show success or error message from the backend
+                } else {
+                    alert(`⚠️ ${data.message || "Failed to send email. Please try again."}`);
                 }
-                const data = JSON.parse(responseText);
-                alert(data.message);
-            }catch(err){
-                console.log(err);
+            } catch (err) {
+                console.error('❌ Error:', err);
                 alert('An error occurred. Please try again later.');
             }
-    })
+        });       
+    
         </script>
     </form>
 </body>

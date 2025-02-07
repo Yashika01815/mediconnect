@@ -71,15 +71,15 @@ module.exports.forgotPassword = async function forgotPassword(req, res) {
                 return res.json({ message: "Password reset email sent." });
             } else {
                 console.log("❌ Email Sending Failed");
-                return res.status(500).json({ message: "Failed to send email. Please try again." });
+                return res.json({ message: "Failed to send email. Please try again." });
             }
         } else {
             console.log("⚠️ User not found with email:", email);
-            return res.status(400).json({ message: "Enter correct email." });
+            return res.json({ message: "Enter correct email." });
         }
     } catch (err) {
         console.error("❌ Error in forgotPassword:", err);
-        return res.status(500).json({ message: "Internal Server Error", error: err.message });
+        return res.json({ message: "Internal Server Error", error: err.message });
     }
 };
 
