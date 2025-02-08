@@ -891,57 +891,62 @@
                 <htmlcode id="el-zes2d15c">
                   <div id="root">
                     <section id="contact" class="bg-neutral-100 py-16">
-                      <div class="container mx-auto px-4" id="el-nqhez8fx">
-                        <div class="text-center mb-12" id="el-35r9qj00">
-                          <h2 class="text-4xl font-bold text-neutral-900 mb-4" id="el-yx57gjdv">Contact Us</h2>
-                          <p class="text-neutral-600 max-w-2xl mx-auto" id="el-m4ov1a03">Have questions about MediConnect? We're here to help. Reach out to our support team for assistance.</p>
-                        </div>
-                  
-                        <!-- Updated grid layout to single column -->
-                        <div class="grid grid-cols-1 gap-12" id="el-b9910aca">
-                          <div class="bg-white rounded-2xl p-8 shadow-lg" id="el-pwagg3lb">
-                            <form class="space-y-6" id="el-eqbq3cb8">
-                              <div id="el-qtceraay">
-                                <label for="name" class="block text-sm font-medium text-neutral-700 mb-1">Full Name</label>
-                                <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200" placeholder="Enter your name" required>
-                              </div>
-                              <div id="el-9i0zpmkt">
-                                <label for="email" class="block text-sm font-medium text-neutral-700 mb-1">Email Address</label>
-                                <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200" placeholder="Enter your email" required>
-                              </div>
-                              <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300 font-medium">Send Message</button>
-                            </form>
-                          </div>
-                  
-                          <div class="bg-white rounded-2xl p-8 shadow-lg" id="el-ae696xo2">
-                            <h3 class="text-2xl font-bold text-neutral-900 mb-6">Quick Connect</h3>
-                            <div class="space-y-6">
-                              <div class="flex items-start">
-                                <div class="bg-blue-100 p-3 rounded-lg">
-                                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                  </svg>
-                                </div>
-                                <div class="ml-4">
-                                  <h4 class="text-lg font-semibold text-neutral-900">Email Us</h4>
-                                  <p class="text-neutral-600">support@mediconnect.com</p>
-                                </div>
-                              </div>
+                        <div class="container mx-auto px-4">
+                            <div class="text-center mb-12">
+                                <h2 class="text-4xl font-bold text-neutral-900 mb-4">Contact Us</h2>
+                                <p class="text-neutral-600 max-w-2xl mx-auto">Have questions about MediConnect? We're here to help. Reach out to our support team for assistance.</p>
                             </div>
-                          </div>
-                  
-                          <div class="bg-white rounded-2xl p-8 shadow-lg" id="el-tn4itawe">
-                            <h3 class="text-2xl font-bold text-neutral-900 mb-6">Emergency Support</h3>
-                            <p class="text-neutral-600 mb-4">For medical emergencies, please call our 24/7 helpline:</p>
-                            <div class="bg-red-100 text-red-700 p-4 rounded-lg font-semibold text-center">
-                              Emergency Hotline: 911
+                
+                            <!-- Updated grid layout -->
+                            <div class="flex flex-col items-center gap-8">
+                                <div class="bg-white rounded-2xl p-8 shadow-lg w-full max-w-2xl">
+                                  <form class="space-y-6">
+                                    <div>
+                                        <label for="name" class="block text-sm font-medium text-neutral-700 mb-1">Full Name</label>
+                                        <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200" placeholder="Enter your name" required>
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-sm font-medium text-neutral-700 mb-1">Email Address</label>
+                                        <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200" placeholder="Enter your email" required>
+                                    </div>
+                                    <div>
+                                        <label for="message" class="block text-sm font-medium text-neutral-700 mb-1">Write Message</label>
+                                        <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200 resize-none" placeholder="Enter your message" required></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300 font-medium">Send Message</button>
+                                </form>
+                                
+                                </div>
+                
+                                <div class="bg-white rounded-2xl p-8 shadow-lg w-full max-w-2xl">
+                                    <h3 class="text-2xl font-bold text-neutral-900 mb-6">Quick Connect</h3>
+                                    <div class="space-y-6">
+                                        <div class="flex items-start">
+                                            <div class="bg-blue-100 p-3 rounded-lg">
+                                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="ml-4">
+                                                <h4 class="text-lg font-semibold text-neutral-900">Email Us</h4>
+                                                <p class="text-neutral-600">support@mediconnect.com</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="bg-white rounded-2xl p-8 shadow-lg w-full max-w-2xl">
+                                    <h3 class="text-2xl font-bold text-neutral-900 mb-6">Emergency Support</h3>
+                                    <p class="text-neutral-600 mb-4">For medical emergencies, please call our 24/7 helpline:</p>
+                                    <div class="bg-red-100 text-red-700 p-4 rounded-lg font-semibold text-center">
+                                        Emergency Hotline: 911
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
                     </section>
-                  </div>
-                  
+                </div>
+                
 </div>
 <section id="footer" class="bg-neutral-900 text-white py-8">
   <div class="container mx-auto px-4">
