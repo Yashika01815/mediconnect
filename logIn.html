@@ -88,7 +88,7 @@
                 if (resp.data.message === "user has logged in") {
                     //sweetalert
                     const isFirstLogin = resp.data.firstLogin;
-                    const alertText = isFirstLogin ? "A confirmation email has been sent to you with your credentials. Welcome to MediConnect!" : "Welcome to Khoya Paya Portal!";
+                    const alertText = isFirstLogin ? "A confirmation email has been sent to you with your credentials. Welcome to MediConnect!" : "Welcome to MediConnect!";
                     Swal.fire({
                         title: "Login Successful!!!",
                         text: alertText,
