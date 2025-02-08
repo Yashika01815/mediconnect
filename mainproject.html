@@ -126,7 +126,7 @@
                 <a href="#" class="dropdown-item">📦 Track Your Order</a>
                 <a href="#" class="dropdown-item">🚨 Emergency Contacts</a>
                 <a href="#" class="dropdown-item">🤝 My Community Health Worker</a>
-                <a href="#" class="dropdown-item logout">🚪 Logout</a>
+                <a href="#" class="dropdown-item logout" id ="logoutButton">🚪 Logout</a>
             </div>
           </details>
           </div>
@@ -1050,6 +1050,29 @@
                   // Hide user profile icon
                   //document.getElementById('profile-icon').style.visibility = 'hidden';
               }
+              </script>
+
+              <script>
+                 const domain = window.location.hostname;
+                 console.log(domain);
+
+                 document.getElementById('logoutButton').addEventListener('click', async function() {
+                    try{
+                      let resp = await axios.get(`http://${domain}:3000/signup/logout`, { withCredentials: true });
+                      if (resp.data.message === "User logout successfully") {
+                        alert("User Logout successfully.");
+                        window.location.reload(); 
+                        showLoginSignupOptions();
+
+                      }else{
+                        alert("Login first.");
+                      }
+
+                    }catch(error){
+                      console.error(error);
+                      alert("An error occurred during logout.");
+                    }
+                 });
               </script>
             </body>
             </html>
