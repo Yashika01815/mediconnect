@@ -6,67 +6,70 @@
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
-    <div id="root">
+    <div id="root" class="h-full w-full flex items-center justify-center">
         <!-- Track Order Section -->
-        <section id="track-order" class="bg-neutral-100 py-16">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
-                    <div class="lg:w-1/2 space-y-8">
-                        <h2 class="text-4xl font-bold text-neutral-900">Track Your Order</h2>
-                        <p class="text-lg text-neutral-600">
-                            Stay updated with your order status in real-time. Enter your order number below to track your delivery progress and estimated arrival time.
-                        </p>
-                        <div class="space-y-6">
-                            <div class="flex flex-col space-y-2">
-                                <label for="order-number" class="text-neutral-800 font-medium">Order Number</label>
-                                <div class="flex gap-4">
-                                    <input type="text" id="order-number" placeholder="Enter your order number"
-                                        class="flex-1 px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
-                                        Track your order
-                                    </button>
-                                </div>
+        <section id="track-order" class="bg-neutral-100 py-16 h-screen w-full flex items-center justify-center">
+            <div class="container mx-auto px-4 flex items-center justify-center">
+                <div class="lg:w-1/2 space-y-8 text-center"> <!-- Added text-center -->
+                    <h2 class="text-4xl font-bold text-neutral-900">Track Your Order</h2>
+                    <p class="text-lg text-neutral-600">
+                        Stay updated with your order status in real-time. Enter your order number below to track your delivery progress and estimated arrival time.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex flex-col space-y-2">
+                            <label for="order-number" class="text-neutral-800 font-medium">Order Number</label>
+                            <div class="flex gap-4 justify-center"> <!-- Centered input and button -->
+                                <input type="text" id="order-number" placeholder="Enter your order number"
+                                    class="flex-1 px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/2">
+                                <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                                    Track your order
+                                </button>
                             </div>
-    
-                            <div class="space-y-4">
-                                <h3 class="text-xl font-semibold text-neutral-800">Order Status Updates:</h3>
-                                <ul class="space-y-3 text-neutral-600">
-                                    <li class="flex items-center">
-                                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                        Real-time Tracking Updates
-                                    </li>
-                                    <li class="flex items-center">
-                                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                        Estimated Delivery Time
-                                    </li>
-                                    <li class="flex items-center">
-                                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                        Delivery Status Notifications
-                                    </li>
-                                </ul>
-                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-semibold text-neutral-800">Order Status Updates:</h3>
+                            <ul class="space-y-3 text-neutral-600">
+                                <li class="flex items-center justify-center"> <!-- Centered list items -->
+                                    <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Real-time Tracking Updates
+                                </li>
+                                <li class="flex items-center justify-center">
+                                    <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Estimated Delivery Time
+                                </li>
+                                <li class="flex items-center justify-center">
+                                    <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Delivery Status Notifications
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-    
-       
     </div>
-    
 </body>
 </html>
