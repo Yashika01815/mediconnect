@@ -161,3 +161,35 @@ module.exports.loginUser = async function loginUser(req, res){
         console.log(err);
     }
 }
+
+module.exports.checkLogin = async function checkLogin(req, res) {
+    if(req.cookies.token){
+        let isVerified = jwt.verify(req.cookies.token,JWT_KEY )
+        if(isVerified){
+           const userId = isVerified._id;
+         //  console.log("userId", userId);
+
+           const user = await userModel.findById(userId);
+          // console.log("user", user);
+           if(user){
+              // console.log("after line 134");
+               const userName = user.name; // Extract the username
+              // console.log("userName", userName);
+               res.json({
+                   message:"user has logged in",
+                   data:userName
+               })
+           }
+           
+            
+        }else{
+            return res.json({
+                message:"Please login first."
+            })
+        }
+    }else {
+        return res.json({
+            message:"Please login first."
+        })
+    }
+}

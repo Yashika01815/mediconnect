@@ -106,20 +106,20 @@
             
             <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" id="el-pjletctn">How It Works</a>
             <a href="#find-doctors" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" id="el-8d5bajuj">Find Doctors</a>
+            <a href="#contact" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" id="el-j5extbul">Contact Us</a>
             <details class="relative">
-              <summary class="cursor-pointer text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium focus:outline-none" id="loginSignupContainer">
+              <summary id="loginSignupContainer" class="cursor-pointer text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium focus:outline-none" >
                   Login as
               </summary>
-              <div class="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"  id="loginSignupContainer">
+              <div id="dropdownContent" class="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" >
                   <div class="py-1">
                       <a href="./login2.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Doctor</a>
                       <a href="./logIn.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Patient</a>
                       <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Community Health Worker</a>
                   </div>
-                  <i class="fa-solid fa-user user-icon" id="profile-icon"></i>
+                  <!-- <i class="fa-solid fa-user user-icon" id="profile-icon" style="visibility:hidden;"></i> -->
               </div>
           </details>
-            <a href="#contact" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" id="el-j5extbul">Contact Us</a>
           </div>
         </div>
 
@@ -146,6 +146,7 @@
             <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100" id="el-zhtw5r7q">Health Worker</a>
             <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100" id="el-z5nfx5a3">Patient</a>
           </div>
+
         </div>
         <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium" id="el-um0jf65v">How It Works</a>
         <a href="#find-doctors" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium" id="el-rxg79v24">Find Doctors</a>
@@ -975,50 +976,66 @@
             <script src="image-handler.js"></script>
 
             <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-            <!-- <script>
-               document.addEventListener("DOMContentLoaded", function() {
+           
+            <script>
+              document.addEventListener("DOMContentLoaded", function() {
                   checkLoginStatus();
               });
-
+              
               async function checkLoginStatus() {
-                try{
-                  const domain = window.location.hostname;
-                  const response = await axios.get(`http://${domain}:3000/signup/login`, { withCredentials: true });
-                  if (response.data.message === "user has logged in") {
-                      const username = response.data.data;
-                      console.log(username);
-                      console.log("Full response data:", response.data);
-                      console.log("Full response data:", response.data.data);
-                      updateNavbarWithUsername(username);
-                  }else{
-                    showLoginSignupOptions();
+                  try {
+                      const domain = window.location.hostname;
+                      const response = await axios.get(`http://${domain}:3000/signup/login`, { withCredentials: true });
+              
+                      if (response.data.message === "user has logged in") {
+                          const username = response.data.data;
+                          console.log("✅ Logged in as:", username);
+                          updateNavbarWithUsername(username);
+                      } else {
+                          console.log("⚠️ User not logged in");
+                          showLoginSignupOptions();
+                      }
+                  } catch (error) {
+                      console.error("❌ Error checking login status:", error);
+                      showLoginSignupOptions();
                   }
-                }catch(error){
-                  console.log(error);
-                  showLoginSignupOptions();
-                }
               }
-
+              
               function updateNavbarWithUsername(username) {
                 const loginSignupContainer = document.getElementById('loginSignupContainer');
-                loginSignupContainer.innerHTML = ''; // Clear existing content
-                const li = document.createElement('li');
-                li.textContent = `Welcome, ${username}!`; // Create the <li> with the username
-                loginSignupContainer.appendChild(li); // Add the <li> to the container
-                document.getElementById('profile-icon').style.visibility='visible';
-              }
+    
+                // Clear previous content
+                loginSignupContainer.innerHTML = ''; 
+                 // Hide dropdown options
+    document.getElementById('dropdownContent').style.display = 'none';
+    
 
+                // Create text element
+                const textElement = document.createElement('span');
+                textElement.textContent = `Welcome, ${username}! `;
+
+                // Create user icon
+                // const userIcon = document.createElement('i');
+                // userIcon.classList.add('fa-solid', 'fa-user', 'user-icon'); // Ensure your CSS styles this properly
+                // userIcon.style.marginLeft = '8px'; // Adds spacing between text and icon
+                // userIcon.style.visibility = 'visible';
+
+                // Append elements
+                loginSignupContainer.appendChild(textElement);
+                // loginSignupContainer.appendChild(userIcon);
+              }
+              
               function showLoginSignupOptions() {
-                const loginSignupContainer = document.getElementById('loginSignupContainer');
-                loginSignupContainer.innerHTML = `
-                    <div class="py-1">
-                      <a href="./login2.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Doctor</a>
-                      <a href="./logIn.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Patient</a>
-                      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Medical Staff</a>
-                  </div>
-                `;
-       }
-            </script> -->
+                  const loginSignupContainer = document.getElementById('loginSignupContainer');
+                  loginSignupContainer.textContent = 'Login as';
+                  
+                  // Show dropdown options
+                  document.getElementById('dropdownContent').style.display = 'block';
+                  
+                  // Hide user profile icon
+                  //document.getElementById('profile-icon').style.visibility = 'hidden';
+              }
+              </script>
             </body>
             </html>
           

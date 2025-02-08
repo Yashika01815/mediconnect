@@ -1,5 +1,5 @@
 const express = require('express');
-const { postSignUp, forgotPassword , resetPassword, loginUser} = require('../controller/userController');
+const { postSignUp, forgotPassword , resetPassword, loginUser, checkLogin} = require('../controller/userController');
 
 const userRouter = express.Router();
 
@@ -9,5 +9,6 @@ userRouter.post('/forgotPassword', forgotPassword);
 userRouter.post('/resetPassword', resetPassword);
 
 userRouter.post('/login', loginUser);
+userRouter.get('/login', checkLogin);
 
 module.exports = userRouter;
