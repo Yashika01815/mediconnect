@@ -193,3 +193,29 @@ module.exports.checkLogin = async function checkLogin(req, res) {
         })
     }
 }
+
+module.exports.logoutUser = async function logoutUser(req, res) {
+    const token = req.cookies.token;
+    //console.log('Token:', token); // Debug log
+    if (token) {
+        try {
+            let isVerified = jwt.verify(token, JWT_KEY);
+            //console.log('Token Verified:', isVerified); 
+            if (isVerified) {
+                res.clearCookie('token', '', {
+                    httpOnly: true, 
+                    secure: false, 
+                    sameSite: 'Lax', 
+                    path:'/', 
+                    maxAge: 0
+                });
+                return res.json({message: "User logout successfully"});
+            }
+        } catch (err) {
+            // If the token is not valid (e.g., expired), it will throw an error
+            return res.json({message: "Invalid token, please login first."});
+        }
+    } 
+    
+    return res.json({message: "Please login first."});
+}
