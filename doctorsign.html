@@ -5,86 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Sign-In</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #7ba7e9, #2a52be); /* Medical Blue Theme */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+        .signin-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 450px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0d6efd; /* Blue Heading */
+        }
+        h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
+    
+    <!-- Sign-In Details -->
     <div class="signin-container">
-        <h2>Doctor Sign-In</h2>
-        <form action="doctor_dashboard.html" method="POST" enctype="multipart/form-data">
-            <label for="doctor_id">Doctor ID:</label>
-            <input type="text" id="doctor_id" name="doctor_id" required>
-            
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            
-            <label for="specialization">Specialization:</label>
-            <input type="text" id="specialization" name="specialization" required>
-            
-            <label for="hospital">Hospital Name:</label>
-            <input type="text" id="hospital" name="hospital" required>
-            
-            <label for="experience">Years of Experience:</label>
-            <input type="number" id="experience" name="experience" min="0" required>
-            
-            <label for="contact">Contact Number:</label>
-            <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" required>
-            
-            <label for="certificate">Upload Medical Certificate:</label>
-            <input type="file" id="certificate" name="certificate" accept=".pdf,.jpg,.png" required>
-            
-            <button type="submit">Sign In</button>
-        </form>
+        <h2>Welcome Doctors!</h2>
+        <p>Please fill in the required details to sign in.</p>
     </div>
+
+    <!-- Embedded Google Form -->
+    <div class="form-container">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfRUdnmjsqSxg0EOFrizsj_qeNnyKwYje8eQzSnJ18jWrY7vA/viewform?embedded=true"></iframe>
+    </div>
+
 </body>
 </html>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-    .signin-container {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 450px;
-        text-align: center;
-    }
-    h2 {
-        margin-bottom: 20px;
-    }
-    label {
-        display: block;
-        margin-top: 10px;
-        font-weight: bold;
-        text-align: left;
-    }
-    input {
-        width: 100%;
-        padding: 8px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    button {
-        margin-top: 20px;
-        padding: 10px;
-        width: 100%;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    button:hover {
-        background: #0056b3;
-    }
-</style>
