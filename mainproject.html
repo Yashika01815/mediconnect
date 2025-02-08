@@ -14,6 +14,7 @@
       <meta name="description" content="{{project.seoDescription}}">
       <!-- Performance optimization: Preload critical resources -->
       <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" as="style">
       
       <!-- {headerScripts} -->
@@ -116,15 +117,16 @@
             <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" id="el-pjletctn">How It Works</a>
             <a href="#find-doctors" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" id="el-8d5bajuj">Find Doctors</a>
             <details class="relative">
-              <summary class="cursor-pointer text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium focus:outline-none">
+              <summary class="cursor-pointer text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium focus:outline-none" id="loginSignupContainer">
                   Login as
               </summary>
-              <div class="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+              <div class="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"  id="loginSignupContainer">
                   <div class="py-1">
                       <a href="./login2.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Doctor</a>
                       <a href="./logIn.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Patient</a>
                       <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Medical Staff</a>
                   </div>
+                  <i class="fa-solid fa-user user-icon" id="profile-icon"></i>
               </div>
           </details>
             <a href="#contact" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium" id="el-j5extbul">Contact Us</a>
@@ -1208,6 +1210,52 @@
                 console.log('Page complete');
             </script>
             <script src="image-handler.js"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <!-- <script>
+               document.addEventListener("DOMContentLoaded", function() {
+                  checkLoginStatus();
+              });
+
+              async function checkLoginStatus() {
+                try{
+                  const domain = window.location.hostname;
+                  const response = await axios.get(`http://${domain}:3000/signup/login`, { withCredentials: true });
+                  if (response.data.message === "user has logged in") {
+                      const username = response.data.data;
+                      console.log(username);
+                      console.log("Full response data:", response.data);
+                      console.log("Full response data:", response.data.data);
+                      updateNavbarWithUsername(username);
+                  }else{
+                    showLoginSignupOptions();
+                  }
+                }catch(error){
+                  console.log(error);
+                  showLoginSignupOptions();
+                }
+              }
+
+              function updateNavbarWithUsername(username) {
+                const loginSignupContainer = document.getElementById('loginSignupContainer');
+                loginSignupContainer.innerHTML = ''; // Clear existing content
+                const li = document.createElement('li');
+                li.textContent = `Welcome, ${username}!`; // Create the <li> with the username
+                loginSignupContainer.appendChild(li); // Add the <li> to the container
+                document.getElementById('profile-icon').style.visibility='visible';
+              }
+
+              function showLoginSignupOptions() {
+                const loginSignupContainer = document.getElementById('loginSignupContainer');
+                loginSignupContainer.innerHTML = `
+                    <div class="py-1">
+                      <a href="./login2.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Doctor</a>
+                      <a href="./logIn.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Patient</a>
+                      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Medical Staff</a>
+                  </div>
+                `;
+       }
+            </script> -->
             </body>
             </html>
           
