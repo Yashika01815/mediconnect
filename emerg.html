@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Emergency Contacts</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
@@ -31,24 +31,32 @@
                 <button class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg mb-6 animate__animated animate__pulse" id="el-kmsck12n">
                   ACTIVATE EMERGENCY ALERT
                 </button>
-                <div class="space-y-4" id="el-tegl2yj8">
-                  <div class="flex flex-col md:flex-row items-start md:items-center justify-between p-4 bg-neutral-700 rounded-lg gap-2" id="el-netey67f">
-        <div class="flex flex-col">
-          <span class="font-medium">Emergency Contact #1</span>
-          <div class="text-sm text-gray-300 space-y-1">
-            <p>Name: <input type="text" class="bg-neutral-600 text-white px-2 py-1 rounded" placeholder="Enter name"></p>
-            <p>Phone: <input type="tel" class="bg-neutral-600 text-white px-2 py-1 rounded" placeholder="Enter phone number"></p>
-          </div>
-        </div>
-        <button class="text-blue-400 hover:text-blue-300 whitespace-nowrap">Configure</button>
-      </div>
-                  <div class="flex items-center justify-between p-4 bg-neutral-700 rounded-lg" style="font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: normal; text-align: start; color: rgb(255, 255, 255); background-color: rgb(64, 64, 64); padding: 16px; margin: 0px; display: flex; position: static; align-items: center; justify-content: space-between;" id="el-8cmu3u21">
-        <span style="font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: 500; line-height: 24px; letter-spacing: normal; text-align: start; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; display: block; position: static; align-items: normal; justify-content: normal;">Emergency Contact #2</span>
-        <button class="text-blue-400 hover:text-blue-300">Configure</button>
-      </div>
+                <div class ="flex">
+                  <div class="space-y-4" id="el-tegl2yj8">
+                    <div class=" flex-col md:flex-row items-start md:items-center justify-between p-4 bg-neutral-700 rounded-lg gap-2" id="el-netey67f">
+                      <div id="contactListBlock"></div>
+  
+                      <div class="flex items-center justify-between p-4 bg-neutral-700 rounded-lg gap-14">
+                          <div class="flex flex-col flex-1">
+                              <span class="font-medium">Add Emergency Contact</span>
+                              <div class="text-sm text-gray-300 space-y-2 mt-2">
+                                  <p>Name: <input type="text" id="contactName" class="bg-neutral-600 text-white px-2 py-1 rounded w-full" placeholder="Enter name"></p>
+                                  <p>Phone: <input type="tel" id="contactPhone" class="bg-neutral-600 text-white px-2 py-1 rounded w-full" placeholder="Enter phone number"></p>
+                              </div>
+                          </div>
+                          <button class="text-blue-400 hover:text-blue-300 whitespace-nowrap" id="addEmergencyContactButton">Configure</button>
+                      </div> 
+                     
+                    </div>          
+         
+                  </div>
+
+                  
                 </div>
-              </div>
+          </div>
+      </div>
       
+            
               <!-- Ambulance Services -->
               <div class="bg-neutral-800 p-8 rounded-xl animate__animated animate__fadeInRight" id="el-4x62ifoh">
                 <div class="flex items-center mb-6" id="el-x4kimr2p">
@@ -102,5 +110,86 @@
           </div>
         </section>
       </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script>
+
+        document.addEventListener("DOMContentLoaded", async function() {
+
+          const contactListBlock = document.getElementById("contactListBlock");
+            const addContactButton = document.getElementById("addEmergencyContactButton");
+
+            const userEmail = sessionStorage.getItem("userEmail");
+            if (!userEmail) {
+                alert("Please log in to manage emergency contacts.");
+                return;
+            }
+
+            async function loadEmergencyContacts() {
+                try {
+                    const response = await axios.get(`http://192.168.1.104:3000/emergency/getEmergencyContacts?email=${userEmail}`, { withCredentials: true });
+
+                    contactListBlock.innerHTML = ""; // Clear previous contacts
+
+                    if (response.data.contacts.length > 0) {
+                        response.data.contacts.forEach((contact, index) => {
+                            const contactDiv = document.createElement("div");
+                            contactDiv.className = "flex items-center justify-between p-4 bg-neutral-700 rounded-lg gap-2";
+                            contactDiv.innerHTML = `
+                                <div class="flex flex-1 items-center gap-4">
+                                    <span class="font-medium">Emergency Contact #${index + 1}</span>
+                                    <input type="text" class="bg-neutral-600 text-white px-2 py-1 rounded w-1/2" value="${contact.name}" readonly>
+                                    <input type="tel" class="bg-neutral-600 text-white px-2 py-1 rounded w-1/2" value="${contact.phone}" readonly>
+                                </div>
+                            `;
+                            contactListBlock.appendChild(contactDiv);
+                    });
+
+                 
+                    } else {
+                        contactListBlock.innerHTML = `<p class="text-gray-400">No emergency contacts found.</p>`;
+                    }
+
+                } catch (error) {
+                    console.error("❌ Error fetching contacts:", error);
+                    alert("Failed to load contacts.");
+                }
+            }
+
+            addContactButton.addEventListener("click", async () => {
+                const name = document.getElementById("contactName").value.trim();
+                const phone = document.getElementById("contactPhone").value.trim();
+
+                if (!name || !phone) {
+                    alert("Please enter both name and phone number.");
+                    return;
+                }
+
+                try {
+                    const response = await axios.post("http://192.168.1.104:3000/emergency/addEmergencyContact", 
+                        { email: userEmail, name, phone },
+                        { withCredentials: true }
+                    );
+
+                    if (response.data.message.includes("successfully")) {
+                        alert("Contact added successfully!");
+                        loadEmergencyContacts(); // Refresh the list
+                    } else {
+                        alert(response.data.message);
+                    }
+
+                } catch (error) {
+                    console.error("❌ Error adding contact:", error);
+                    alert("Failed to add contact.");
+                }
+            });
+
+            await loadEmergencyContacts();
+
+
+  });
+
+          
+      </script>
 </body>
 </html>

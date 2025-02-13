@@ -95,6 +95,8 @@
                         icon: "success"
                     }).then((result)=>{
                         if(result.isConfirmed){
+                            
+                            sessionStorage.setItem("userEmail", email); // for emergency contacts
                             window.location.href = '/mediconnect/mainproject.html'; // Redirect to home page upon successful login
                         }
                     })

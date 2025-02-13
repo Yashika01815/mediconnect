@@ -55,6 +55,12 @@ const userSchema = mongoose.Schema({
             default: true
     },
     resetToken: {type:String, default:null},
+    emergencyContacts: [
+        {
+            name: { type: String, required: true, default:null },
+            phone: { type: String, required: true, minLength:10,default:null }
+        }
+    ]
 });
 
 userSchema.methods.createResetToken=function(){
@@ -75,6 +81,9 @@ mongoose.model('userModel', userSchema);
 
 const userRouter = require('../routers/userRouter');
 app.use('/signup', userRouter);
+
+const userEmergencyRouter = require('../routers/userEmergencyRouter');
+app.use('/emergency', userEmergencyRouter);
 
 app.listen(3000, () => {
     console.log('Server is listening on port 3000');

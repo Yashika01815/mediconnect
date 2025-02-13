@@ -3,6 +3,7 @@ const { postSignUp, forgotPassword , resetPassword, loginUser, checkLogin, logou
 
 const userRouter = express.Router();
 
+
 // ✅ Define the route correctly
 userRouter.post('/sendInfo', postSignUp);
 userRouter.post('/forgotPassword', forgotPassword);
@@ -13,4 +14,7 @@ userRouter.get('/login', checkLogin);
 
 userRouter.get('/logout', logoutUser);
 
+
+
 module.exports = userRouter;
+
