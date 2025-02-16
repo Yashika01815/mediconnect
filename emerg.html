@@ -114,6 +114,8 @@
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script>
 
+          const domain = window.location.hostname;
+          console.log(domain);
         document.addEventListener("DOMContentLoaded", async function() {
 
           const contactListBlock = document.getElementById("contactListBlock");
@@ -127,7 +129,7 @@
 
             async function loadEmergencyContacts() {
                 try {
-                    const response = await axios.get(`http://192.168.1.104:3000/emergency/getEmergencyContacts?email=${userEmail}`, { withCredentials: true });
+                    const response = await axios.get(`http://${domain}:3000/emergency/getEmergencyContacts?email=${userEmail}`, { withCredentials: true });
 
                     contactListBlock.innerHTML = ""; // Clear previous contacts
 
@@ -166,7 +168,7 @@
                 }
 
                 try {
-                    const response = await axios.post("http://192.168.1.104:3000/emergency/addEmergencyContact", 
+                    const response = await axios.post(`http://${domain}:3000/emergency/addEmergencyContact`, 
                         { email: userEmail, name, phone },
                         { withCredentials: true }
                     );
