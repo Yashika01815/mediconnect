@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 // ✅ CORS Configuration
-const allowedOrigins = ['http://192.168.1.102:5500', 'http://192.168.1.104:5500', 'http://192.168.1.105:5500'];
+const allowedOrigins = ['http://192.168.1.102:5500', 'http://192.168.1.104:5500', 'http://192.168.1.105:5500', 'http://192.168.1.100:5500'];
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
