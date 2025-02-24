@@ -1,5 +1,7 @@
+require('dotenv').config({ path: '../.env' });
 const mongoose = require('mongoose');
 const userModel = mongoose.model('userModel');
+const twilio = require('twilio');
 
 module.exports.sendContactsInfo = async function sendContactsInfo(req, res) {
     try {
@@ -36,7 +38,7 @@ module.exports.sendContactsInfo = async function sendContactsInfo(req, res) {
 module.exports.fetchContactsInfo = async function fetchContactsInfo(req, res) {
     try {
         const email = req.query.email;// Get email from session storage
-        console.log("fetched email", email);
+       // console.log("fetched email", email);
         if (!email) {
             return res.json({ message: "Unauthorized: Email not provided" });
         }
@@ -53,4 +55,8 @@ module.exports.fetchContactsInfo = async function fetchContactsInfo(req, res) {
         console.error("❌ Error fetching emergency contacts:", error);
         res.json({ message: "Internal Server Error", error: error.message });
     }
+}
+
+module.exports.sendEmergencyAlertsInfo = async function sendEmergencyAlertsInfo(req, res){
+    
 }

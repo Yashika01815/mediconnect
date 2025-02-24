@@ -3,12 +3,14 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
     "email-validator": "^2.0.4",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^6.1.1",
     "nodemailer": "^6.10.0",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "twilio": "^5.4.5"
   },
   "name": "mediconnect",
   "version": "1.0.0",
