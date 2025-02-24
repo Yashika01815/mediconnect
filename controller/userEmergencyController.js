@@ -82,6 +82,8 @@ module.exports.sendEmergencyAlertsInfo = async function sendEmergencyAlertsInfo(
         }
 
         const message = "🚨 Emergency Alert! The patient's condition is worsening. Please respond immediately!";
+        const callMessageHindi = "यह एक आपातकालीन चेतावनी है। मरीज की स्थिति बिगड़ रही है। कृपया तुरंत प्रतिक्रिया दें!";
+        const callMessageEnglish = "This is an emergency alert. The patient's condition is worsening. Please respond immediately!";
         for (let contact of user.emergencyContacts) {
             try{
                 let formattedPhone = contact.phone.startsWith('+') 
@@ -97,6 +99,23 @@ module.exports.sendEmergencyAlertsInfo = async function sendEmergencyAlertsInfo(
                 });
 
                 console.log(`✅ SMS sent! SID: ${response.sid}`);
+
+                console.log(`📞 Making call to: ${formattedPhone}`);
+        
+                let callResponse = await client.calls.create({
+                    twiml: `<Response>
+                        <Say language="hi-IN">${callMessageHindi}</Say>
+                         <Say loop="1">${callMessageHindi}</Say>
+                        <Say loop="2">${callMessageEnglish}</Say>
+                            </Response>`, 
+                    from: twilioPhoneNumber,
+                    to: formattedPhone
+                });
+        
+                console.log(`✅ Call initiated! Call SID: ${callResponse.sid}`);
+
+                res.json({message:"Alerts sended to emergency contacts successfully!!!"});
+        
 
             }catch(smsError){
                 console.error(`Error sending SMS to ${contact.phone}:`, smsError);
