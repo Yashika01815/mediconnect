@@ -3,6 +3,19 @@ const mongoose = require('mongoose');
 const userModel = mongoose.model('userModel');
 const twilio = require('twilio');
 
+// ✅ Validate Twilio credentials before initializing
+if (!process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN || !process.env.TWILIO_PHONE_NUMBER) {
+    console.error("❌ Twilio credentials are missing! Check your .env file.");
+    process.exit(1); // Stop execution if Twilio credentials are missing
+}
+
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+
+console.log("📞 Twilio Phone Number:", twilioPhoneNumber);
+console.log("✅ TWILIO_ACCOUNT_SID:", process.env.TWILIO_ACCOUNT_SID);
+console.log("✅ TWILIO_AUTH_TOKEN:", process.env.TWILIO_AUTH_TOKEN ? "Loaded" : "Missing");
+
 module.exports.sendContactsInfo = async function sendContactsInfo(req, res) {
     try {
         const { email , name, phone } = req.body; // Get email from session storage
@@ -58,5 +71,40 @@ module.exports.fetchContactsInfo = async function fetchContactsInfo(req, res) {
 }
 
 module.exports.sendEmergencyAlertsInfo = async function sendEmergencyAlertsInfo(req, res){
-    
+    try{
+        const { email } = req.body;
+        console.log("userEmail :", email);
+        if (!twilioPhoneNumber) return res.status(500).json({ message: "Twilio phone number not configured!" });
+        const user = await userModel.findOne({ email });
+
+        if (!user || !user.emergencyContacts.length) {
+            return res.status(404).json({ message: "No emergency contacts found!" });
+        }
+
+        const message = "🚨 Emergency Alert! The patient's condition is worsening. Please respond immediately!";
+        for (let contact of user.emergencyContacts) {
+            try{
+                let formattedPhone = contact.phone.startsWith('+') 
+                ? contact.phone 
+                : `+91${contact.phone.replace(/\D/g, '')}`;
+
+                console.log(`📨 Sending SMS to: ${formattedPhone}`);
+
+                let response = await client.messages.create({
+                    body: message,
+                    from: twilioPhoneNumber,
+                    to: formattedPhone
+                });
+
+                console.log(`✅ SMS sent! SID: ${response.sid}`);
+
+            }catch(smsError){
+                console.error(`Error sending SMS to ${contact.phone}:`, smsError);
+            }
+        }
+
+    }catch(error){
+        console.error("Error sending emergency SMS:", error);
+        res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
 }
