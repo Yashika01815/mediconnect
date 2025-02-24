@@ -104,8 +104,7 @@ module.exports.sendEmergencyAlertsInfo = async function sendEmergencyAlertsInfo(
         
                 let callResponse = await client.calls.create({
                     twiml: `<Response>
-                        <Say language="hi-IN">${callMessageHindi}</Say>
-                         <Say loop="1">${callMessageHindi}</Say>
+                        <Say language="hi-IN" loop="2">${callMessageHindi}</Say>
                         <Say loop="2">${callMessageEnglish}</Say>
                             </Response>`, 
                     from: twilioPhoneNumber,
