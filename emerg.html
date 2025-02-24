@@ -28,7 +28,7 @@
                   <h3 class="text-2xl font-bold" id="el-bm7cmgwb">Emergency Alert System</h3>
                 </div>
                 <p class="text-gray-300 mb-6" id="el-rhsunyxe">Instant alerts to emergency contacts during health emergencies</p>
-                <button class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg mb-6 animate__animated animate__pulse" id="el-kmsck12n">
+                <button class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-lg font-bold text-lg mb-6 animate__animated animate__pulse" id="el-kmsck12n" onclick="sendEmergencyAlert()">
                   ACTIVATE EMERGENCY ALERT
                 </button>
                 <div class ="flex">
@@ -192,6 +192,32 @@
   });
 
           
+      </script>
+
+      <script>
+        async function sendEmergencyAlert() {
+        try{
+            const userEmail = sessionStorage.getItem("userEmail"); // Fetch the email from session storage
+            console.log("userEmail", userEmail);
+            if (!userEmail) {
+              alert("Unauthorized: Email not found in session storage");
+              return;
+            }
+
+            const response = await fetch(`http://${domain}:3000/emergency/sendEmergencyAlert`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: userEmail })
+        });
+
+        const data = await response.json();
+        alert(data.message);
+
+          }catch(error){
+            console.error("Error sending emergency alert:", error);
+            alert("Failed to send emergency alert. Please try again.");
+          }
+        }
       </script>
 </body>
 </html>
