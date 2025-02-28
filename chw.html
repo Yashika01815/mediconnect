@@ -9,59 +9,123 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
-            padding: 20px;
+            margin: 50px;
         }
         .container {
             max-width: 500px;
             margin: auto;
-            background: white;
             padding: 20px;
+            border: 1px solid #ccc;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #333;
-        }
-        .location-box {
-            margin: 20px 0;
-            padding: 10px;
-            background: #e0f7fa;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background: #007bff;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 5px;
-        }
-        button:hover {
-            background: #0056b3;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
         .hidden {
             display: none;
         }
+        button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .location-box {
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            display: inline-block;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
+
+    <script>
+        if (window.location.hostname.startsWith("192.168.")) {
+    window.location.href = window.location.href.replace(window.location.hostname, "localhost");
+        }
+    </script>
+
     <div class="container">
         <h2>Find Your Nearest Community Health Worker</h2>
         <p>We need your location to find the nearest CHW.</p>
 
-        <button id="getLocationBtn">Get My Location</button>
+        <button id="getLocationBtn" onclick="requestLocation()">Get My Location</button>
 
         <div id="locationSection" class="hidden">
-            <p>Your current location:</p>
+            <p><strong>Your current location:</strong></p>
             <div id="locationBox" class="location-box">Fetching location...</div>
-            <button id="editLocationBtn">Edit Location</button>
-            <button id="resetLocationBtn">Reset Location</button>
-            <button id="findCHWBtn">Find Nearest CHW</button>
+            <br>
+            <button id="editLocationBtn" onclick="editLocation()">Edit Location</button>
+            <button id="resetLocationBtn" onclick="resetLocation()">Reset Location</button>
+            <button id="findCHWBtn" onclick="findCHW()" disabled>Find Nearest CHW</button>
         </div>
     </div>
+
+    <script>
+        function requestLocation() {
+            if ("geolocation" in navigator) {
+        // Show a message that the browser will request location
+        alert("MediConnect is requesting access to your location. Please allow access in the popup.");
+
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                let lat = position.coords.latitude;
+                let lon = position.coords.longitude;
+                let address = await getAddress(lat, lon); // Fetch Address
+
+                document.getElementById("locationBox").innerText = address || "Unable to fetch address.";
+                document.getElementById("locationSection").classList.remove("hidden");
+                document.getElementById("findCHWBtn").disabled = false;
+            },
+            (error) => {
+                if (error.code === error.PERMISSION_DENIED) {
+                    alert("Location access was denied. Please enable location in your browser settings.");
+                } else if (error.code === error.POSITION_UNAVAILABLE) {
+                    alert("Your location could not be determined. Please try again later.");
+                } else if (error.code === error.TIMEOUT) {
+                    alert("Location request timed out. Please try again.");
+                } else {
+                    alert("An unknown error occurred while fetching your location.");
+                }
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by your browser.");
+    }
+        }
+
+        async function getAddress(lat, lon) {
+            let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+
+            try {
+                let response = await fetch(url);
+                let data = await response.json();
+                if (data && data.display_name) {
+                    return data.display_name; // Return formatted address
+                }
+            } catch (error) {
+                console.error("Error fetching address:", error);
+            }
+            return "Address not found";
+        }
+
+        function editLocation() {
+            let newLocation = prompt("Enter new location:", "");
+            if (newLocation) {
+                document.getElementById("locationBox").innerText = newLocation;
+            }
+        }
+
+        function resetLocation() {
+            document.getElementById("locationBox").innerText = "Fetching location...";
+            document.getElementById("locationSection").classList.add("hidden");
+            document.getElementById("findCHWBtn").disabled = true;
+        }
+
+        function findCHW() {
+            alert("Finding the nearest Community Health Worker...");
+            // Here, you can integrate an API call to fetch CHW details based on the address
+        }
+    </script>
 </body>
 </html>
