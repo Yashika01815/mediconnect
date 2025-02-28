@@ -52,6 +52,13 @@
     </style>
 </head>
 <body>
+
+    <script>
+        if (window.location.hostname.startsWith("192.168.")) {
+    window.location.href = window.location.href.replace(window.location.hostname, "localhost");
+}
+    </script>
+
     <div class="container">
         <h2>Find Your Nearest Community Health Worker</h2>
         <p>We need your location to find the nearest CHW.</p>
