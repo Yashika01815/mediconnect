@@ -16,7 +16,7 @@
               <p class="text-xl text-gray-300" id="el-45cir1ms">24/7 Emergency Support When You Need It Most</p>
             </div>
       
-            <div class="grid md:grid-cols-2 gap-12" id="el-cya6n2ko">
+            <div class="grid md:grid-cols-2 gap-6" id="el-cya6n2ko">
               <!-- Emergency Alert System -->
               <div class="bg-neutral-800 p-8 rounded-xl animate__animated animate__fadeInLeft" id="el-2lcox6gj">
                 <div class="flex items-center mb-6" id="el-j8e1uayw">
@@ -36,16 +36,38 @@
                     <div class=" flex-col md:flex-row items-start md:items-center justify-between p-4 bg-neutral-700 rounded-lg gap-2" id="el-netey67f">
                       <div id="contactListBlock"></div>
   
-                      <div class="flex items-center justify-between p-4 bg-neutral-700 rounded-lg gap-14">
-                          <div class="flex flex-col flex-1">
-                              <span class="font-medium">Add Emergency Contact</span>
-                              <div class="text-sm text-gray-300 space-y-2 mt-2">
-                                  <p>Name: <input type="text" id="contactName" class="bg-neutral-600 text-white px-2 py-1 rounded w-full" placeholder="Enter name"></p>
-                                  <p>Phone: <input type="tel" id="contactPhone" class="bg-neutral-600 text-white px-2 py-1 rounded w-full" placeholder="Enter phone number"></p>
-                              </div>
-                          </div>
-                          <button class="text-blue-400 hover:text-blue-300 whitespace-nowrap" id="addEmergencyContactButton">Configure</button>
-                      </div> 
+                      <div class="flex items-center justify-between p-4 bg-neutral-700 rounded-lg gap-8">
+                        <div class="flex flex-col flex-1">
+                            <span class="font-medium text-white text-lg">Add Emergency Contact</span>
+                            <div class="text-sm text-gray-300 space-y-2 mt-2">
+                                <p>Name: 
+                                    <input type="text" id="contactName" 
+                                        class="bg-neutral-600 text-white px-3 py-2 rounded w-[90%] focus:ring-2 focus:ring-blue-400 outline-none" 
+                                        placeholder="Enter name">
+                                </p>
+                                <p>Phone: 
+                                    <input type="tel" id="contactPhone" 
+                                        class="bg-neutral-600 text-white px-3 py-2 rounded w-[90%] focus:ring-2 focus:ring-blue-400 outline-none" 
+                                        placeholder="Enter phone number">
+                                </p>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col gap-2">
+                            <button id="addEmergencyContactButton" 
+                                class="px-4 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 
+                                       hover:from-blue-600 hover:to-blue-700 shadow-md hover:shadow-lg transition-all duration-300 text-sm">
+                                ⚙️ Configure
+                            </button>
+                    
+                            <button id="callEmergencyContactButton" 
+                                class="px-4 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-green-500 to-green-600 
+                                       hover:from-green-600 hover:to-green-700 shadow-md hover:shadow-lg transition-all duration-300 text-sm">
+                                📞 Call
+                            </button>
+                        </div>
+                    </div>
+                    
                      
                     </div>          
          
@@ -54,7 +76,6 @@
                   
                 </div>
           </div>
-      </div>
       
             
               <!-- Ambulance Services -->
