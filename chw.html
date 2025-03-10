@@ -63,7 +63,7 @@
         <h2>Find Your Nearest Community Health Worker</h2>
         <p>We need your location to find the nearest CHW.</p>
 
-        <button id="getLocationBtn" onclick="requestLocation()">Get My Location</button>
+        <button id="getLocationBtn">Get My Location</button>
 
         <div id="locationSection" class="hidden">
             <p><strong>Your current location:</strong></p>
@@ -76,46 +76,38 @@
     </div>
 
     <script>
-        function requestLocation() {
+        document.getElementById("getLocationBtn").addEventListener("click", () => {
             if ("geolocation" in navigator) {
-        // Show a message that the browser will request location
-        alert("MediConnect is requesting access to your location. Please allow access in the popup.");
+                alert("MediConnect is requesting access to your location. Please allow access in the popup.");
 
-        navigator.geolocation.getCurrentPosition(
-            async (position) => {
-                let lat = position.coords.latitude;
-                let lon = position.coords.longitude;
-                let address = await getAddress(lat, lon); // Fetch Address
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const { latitude, longitude } = position.coords;
 
-                document.getElementById("locationBox").innerText = address || "Unable to fetch address.";
-                document.getElementById("locationSection").classList.remove("hidden");
-                document.getElementById("findCHWBtn").disabled = false;
-            },
-            (error) => {
-                if (error.code === error.PERMISSION_DENIED) {
-                    alert("Location access was denied. Please enable location in your browser settings.");
-                } else if (error.code === error.POSITION_UNAVAILABLE) {
-                    alert("Your location could not be determined. Please try again later.");
-                } else if (error.code === error.TIMEOUT) {
-                    alert("Location request timed out. Please try again.");
-                } else {
-                    alert("An unknown error occurred while fetching your location.");
-                }
+                        let address = await getAddress(latitude, longitude);
+                        document.getElementById("locationBox").innerText = address || "Unable to fetch address.";
+                        document.getElementById("locationSection").classList.remove("hidden");
+                        document.getElementById("findCHWBtn").disabled = false;
+                    },
+                    (error) => {
+                        alert("Error fetching location: " + error.message);
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                alert("Geolocation is not supported by your browser.");
             }
-        );
-    } else {
-        alert("Geolocation is not supported by your browser.");
-    }
-        }
+        });
+
 
         async function getAddress(lat, lon) {
-            let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+            let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`;
 
             try {
                 let response = await fetch(url);
                 let data = await response.json();
-                if (data && data.display_name) {
-                    return data.display_name; // Return formatted address
+                if (data && data.address) {
+                    return `${data.address.road || ""}, ${data.address.suburb || ""}, ${data.address.city || data.address.town || data.address.village || ""}, ${data.address.state || ""}, ${data.address.country || ""}, ${data.address.postcode || ""}`;
                 }
             } catch (error) {
                 console.error("Error fetching address:", error);
