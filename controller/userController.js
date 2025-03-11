@@ -219,3 +219,40 @@ module.exports.logoutUser = async function logoutUser(req, res) {
     
     return res.json({message: "Please login first."});
 }
+
+module.exports.sendContactMsg = async function sendContactMsg(req, res) {
+    try{
+        const { name, email, msg } = req.body;
+
+        if (!email || !name) {
+            return res.json({
+                message: "User not found. Enter correct email or user name does not match with the registered email"
+            });
+        }
+
+        // Find user where both name and email match
+        let user = await userModel.findOne({ email, name });
+
+        if (!user) {
+            return res.json({
+                message: "User not found. Enter correct email or user name does not match with the registered email"
+            });
+        }
+
+        // Ensure `contactMsg` exists
+        if (!user.contactMsg) user.contactMsg = [];
+
+        // Push the new message
+        user.contactMsg.push({ msg, createdAt: new Date() });
+        await user.save();
+
+        console.log("Message saved successfully:", user.contactMsg);
+
+        return res.json({
+            message: "Msg send Successfully",
+            data: user.contactMsg
+        });
+    }catch(error){
+        console.log("msg",error.message);
+    }
+}

@@ -61,6 +61,12 @@ const userSchema = mongoose.Schema({
             name: { type: String, required: true, default:null },
             phone: { type: String, required: true, minLength:10,default:null }
         }
+    ],
+    contactMsg :[
+        {
+            msg : {type: String, default:null},
+            createdAt: { type: Date, default: null }
+        }
     ]
 });
 
