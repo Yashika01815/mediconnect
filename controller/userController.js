@@ -221,38 +221,38 @@ module.exports.logoutUser = async function logoutUser(req, res) {
 }
 
 module.exports.sendContactMsg = async function sendContactMsg(req, res) {
-    try{
+    try {
         const { name, email, msg } = req.body;
 
         if (!email || !name) {
             return res.json({
-                message: "User not found. Enter correct email or user name does not match with the registered email"
+                message:"Enter the correct email or name"
             });
         }
 
-        // Find user where both name and email match
         let user = await userModel.findOne({ email, name });
-
+       // console.log(user);
         if (!user) {
             return res.json({
-                message: "User not found. Enter correct email or user name does not match with the registered email"
+                message:"User not found. Enter correct email or the user name does not match with the registered email"
             });
         }
+        else{
+             // Ensure `contactMsg` exists
+            user.contactMsg = user.contactMsg || [];
 
-        // Ensure `contactMsg` exists
-        if (!user.contactMsg) user.contactMsg = [];
+            // Push the new message
+            user.contactMsg.push({ msg, createdAt: new Date() });
+            await user.save();
 
-        // Push the new message
-        user.contactMsg.push({ msg, createdAt: new Date() });
-        await user.save();
+            return res.json({
+                    message:"Msg send Successfully",
+                    data: user.contactMsg
+             });
+        }
 
-        console.log("Message saved successfully:", user.contactMsg);
-
-        return res.json({
-            message: "Msg send Successfully",
-            data: user.contactMsg
-        });
-    }catch(error){
-        console.log("msg",error.message);
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
     }
-}
+};
