@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-6 text-center">Patient Profile</h2>
+
+        <!-- Profile Photo Upload -->
+        <div class="flex flex-col items-center mb-6">
+            <label for="photo-upload" class="cursor-pointer">
+                <img id="profile-photo" src="https://via.placeholder.com/150" alt="Profile Photo" class="w-32 h-32 rounded-full border border-gray-300 object-cover">
+            </label>
+            <input type="file" id="photo-upload" class="hidden" accept="image/*" onchange="previewPhoto(event)">
+            <p class="text-sm text-gray-500 mt-2">Click on the photo to upload</p>
+        </div>
+
+        <!-- Form Section -->
+        <form id="profile-form" class="space-y-4">
+            <!-- Name -->
+            <div>
+                <label class="block text-gray-700 font-semibold">Name</label>
+                <input type="text" id="name" class="w-full p-2 border rounded bg-gray-200" placeholder="" readonly>
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label class="block text-gray-700 font-semibold">Email</label>
+                <input type="email" id="email" class="w-full p-2 border rounded bg-gray-200" placeholder="" readonly>
+            </div>
+
+            <!-- Date of Birth -->
+            <div>
+                <label class="block text-gray-700 font-semibold">Date of Birth</label>
+                <input type="date" id="dob" class="w-full p-2 border rounded">
+            </div>
+
+            <!-- Gender -->
+            <div>
+                <label class="block text-gray-700 font-semibold">Gender</label>
+                <select id="gender" class="w-full p-2 border rounded">
+                    <option value="" selected disabled>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Other Fields -->
+            <div>
+                <label class="block text-gray-700 font-semibold">Allergies</label>
+                <input type="text" id="allergies" class="w-full p-2 border rounded" placeholder="Enter allergies">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold">Current Medications</label>
+                <input type="text" id="medications" class="w-full p-2 border rounded" placeholder="Enter medications">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold">Past Surgeries</label>
+                <input type="text" id="surgeries" class="w-full p-2 border rounded" placeholder="Enter past surgeries">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold">Emergency Contact</label>
+                <input type="text" id="emergency-contact" class="w-full p-2 border rounded" placeholder="Enter emergency contact">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold">Insurance Information</label>
+                <input type="text" id="insurance" class="w-full p-2 border rounded" placeholder="Enter insurance details">
+            </div>
+
+            <!-- Profile Completion -->
+            <div>
+                <label class="block text-gray-700 font-semibold">Profile Completion</label>
+                <div class="relative w-full bg-gray-200 rounded-full h-5">
+                    <div id="profile-completion" class="bg-green-500 h-5 rounded-full text-center text-white text-sm leading-5" style="width: 20%;">20%</div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="button" onclick="calculateCompletion()" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+                Save Profile
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Simulated backend response (Replace with actual backend call)
+        function fetchPatientData() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve({
+                        name: "",  // Empty if no data available
+                        email: "",
+                        profilePic: ""
+                    });
+                }, 1000); // Simulate backend delay
+            });
+        }
+
+        // Load patient data dynamically
+        async function loadPatientProfile() {
+            const patientData = await fetchPatientData();
+
+            document.getElementById("name").value = patientData.name || "";
+            document.getElementById("email").value = patientData.email || "";
+
+            // Update profile picture if available
+            if (patientData.profilePic) {
+                document.getElementById("profile-photo").src = patientData.profilePic;
+            }
+        }
+
+        // Function to preview uploaded photo
+        function previewPhoto(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById("profile-photo").src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Function to calculate profile completion percentage
+        function calculateCompletion() {
+            const fields = [
+                "dob", "gender", "allergies", "medications", 
+                "surgeries", "emergency-contact", "insurance"
+            ];
+            let filledFields = fields.filter(id => document.getElementById(id).value.trim() !== "").length;
+            let percentage = Math.round((filledFields / fields.length) * 100);
+
+            document.getElementById("profile-completion").style.width = percentage + "%";
+            document.getElementById("profile-completion").innerText = percentage + "%";
+
+            alert("Profile saved successfully!");
+        }
+
+        // Load data when the page loads
+        document.addEventListener("DOMContentLoaded", loadPatientProfile);
+    </script>
+
+</body>
+</html>
