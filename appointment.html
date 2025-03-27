@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">MediConnect</h1>
+            <ul class="flex space-x-6">
+                <li><a href="profile.html" class="hover:underline">Profile</a></li>
+                <li><a href="appointment.html" class="hover:underline">Appointments</a></li>
+                <li><a href="#" class="hover:underline">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+        <h2 class="text-2xl font-semibold text-gray-700 text-center">Your Appointments</h2>
+
+        <!-- No Appointments Message -->
+        <div id="no-appointments" class="text-center text-gray-500 mt-6">
+            <h3 class="text-lg font-semibold">You haven't booked any appointment yet</h3>
+            <p class="mt-2">Book an appointment with a doctor now.</p>
+        </div>
+
+        <!-- Appointments Table (Hidden Initially) -->
+        <div id="appointments-table" class="mt-6 hidden">
+            <table class="w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-blue-600 text-white">
+                        <th class="border border-gray-300 p-2">Date</th>
+                        <th class="border border-gray-300 p-2">Doctor</th>
+                        <th class="border border-gray-300 p-2">Specialization</th>
+                        <th class="border border-gray-300 p-2">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="appointments-body" class="text-center">
+                    <!-- Appointments will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Book Appointment Button -->
+        <div class="text-center mt-6">
+            <a href="file:///C:/Users/Harshita/Desktop/Code/mediconnect/mainproject.html#find-doctors" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition">
+                Book Appointment 
+            </a>
+        </div>
+    </div>
+
+    <!-- JavaScript to Handle Table Visibility -->
+    <script>
+        // Simulated backend data (Replace this with real data later)
+        const appointments = []; // Empty array means no appointments
+
+        const appointmentsTable = document.getElementById("appointments-table");
+        const appointmentsBody = document.getElementById("appointments-body");
+        const noAppointmentsMsg = document.getElementById("no-appointments");
+
+        // If there are appointments, show the table and hide the message
+        if (appointments.length > 0) {
+            noAppointmentsMsg.classList.add("hidden");
+            appointmentsTable.classList.remove("hidden");
+
+            // Loop through appointments and add them to the table
+            appointments.forEach(app => {
+                const row = `<tr>
+                    <td class="border border-gray-300 p-2">${app.date}</td>
+                    <td class="border border-gray-300 p-2">${app.doctor}</td>
+                    <td class="border border-gray-300 p-2">${app.specialization}</td>
+                    <td class="border border-gray-300 p-2">${app.status}</td>
+                </tr>`;
+                appointmentsBody.innerHTML += row;
+            });
+        } 
+    </script>
+
+</body>
+</html>
